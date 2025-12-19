@@ -16,9 +16,9 @@ import seaborn as sns
 df = pd.read_excel("data/kadai.xlsx")
 # df.info()
 
-df1 = df
+df1 = df.copy()
 
-def LightGBM(df1, X_train, Y_train, X_test, Y_test):
+def LightGBM(X_train, Y_train, X_test, Y_test):
     """
     # 学習データとテストデータに分割
     train = df1[0:1776]
@@ -192,7 +192,7 @@ for  i in np.arange(start_idx, end_idx):
         X_test = test.drop(['process_end_time', 'final_mes_time', 'OV'], axis=1)
         Y_test = test.OV
 
-        yHat.append(LightGBM(df1, X_train, Y_train, X_test, Y_test))
+        yHat.append(LightGBM(X_train, Y_train, X_test, Y_test))
 
 
 
@@ -234,7 +234,7 @@ for  i in np.arange(start_idx, end_idx):
         X_test = X_test[selected_features]
         Y_test = test.OV
 
-        yHat2.append(LightGBM(df1, X_train, Y_train, X_test, Y_test))
+        yHat2.append(LightGBM(X_train, Y_train, X_test, Y_test))
 
 yh2 = np.array(yHat2).flatten()
 
